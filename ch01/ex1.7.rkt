@@ -7,7 +7,7 @@
       (sqrt-iter (improve guess x) x)))
 
 (define (good-enough guess x) 
-  (< (abs (- (square guess) x)) 0.0001))
+  (< (abs (- (square guess) x)) (* 0.001 x)))
 
 
 (define (improve guess x)

@@ -1,8 +1,11 @@
 #lang sicp
 
-; 牛顿法求平方根
+(define (new-if p x y)
+  (cond (p x)
+       (else y)))
+
 (define (sqrt-iter guess x)
-  (if (good-enough guess x)
+  (new-if (good-enough guess x)
       guess
       (sqrt-iter (improve guess x) x)))
 
@@ -23,4 +26,3 @@
 
 (sqrt 9)
 (sqrt 2)
-(sqrt 0.000009)
