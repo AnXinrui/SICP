@@ -1,4 +1,4 @@
-#lang sicp
+#lang scheme
 
 (define (make-accumulator x)
   (let ((init x))
