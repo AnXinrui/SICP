@@ -28,6 +28,16 @@
       3
       (+ x 2)))
 
+;; 直接实现的素数检测方法
+(define (prime-direct? n)
+  (define (prime-iter divisor)
+    (cond ((> (square divisor) n) true)  ; 如果除数的平方大于n，说明n是素数
+          ((= (remainder n divisor) 0) false)  ; 如果n能被divisor整除，说明n不是素数
+          (else (prime-iter (+ divisor 1)))))  ; 继续检查下一个除数
+  (if (< n 2)  ; 处理小于2的特殊情况
+      false
+      (prime-iter 2)))  ; 从2开始检查
+
 ;; 两种素数检测方法
 (define (prime? n)
   (= n (smallest-divisor n)))
@@ -71,11 +81,21 @@
 (display "\n大数范围的素数测试:")
 (search-for-primes 100000 100050)
 
-;; 测试更大的素数以显示更明显的时间差异
-(display "\n非常大的素数测试:")
-(timed-prime-test 1000000007) ;; 10亿级别的素数
-(timed-prime-test 1000000009)
-(timed-prime-test 10000000019) ;; 100亿级别的素数
+;; 添加新的测试来比较三种方法
+(display "\n比较三种方法:")
+(define (compare-methods n)
+  (newline)
+  (display n)
+  (display ": 改进方法 - ")
+  (start-prime-test n prime? (current-inexact-milliseconds))
+  (display ", 原始方法 - ")
+  (start-prime-test n prime-original? (current-inexact-milliseconds))
+  (display ", 直接方法 - ")
+  (start-prime-test n prime-direct? (current-inexact-milliseconds)))
+
+(compare-methods 1000000007)  ; 10亿级别的素数
+(compare-methods 1000000009)
+(compare-methods 10000000019)  ; 100亿级别的素数
 
 ;; 计算平均速度比
 (display "\n\n理论上，使用 next 函数的方法应该比原始方法快接近2倍，")

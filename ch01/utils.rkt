@@ -23,3 +23,36 @@
          (product term (next a) next b))))
 
 (define (even? x) (= (remainder x 2) 0))
+
+;; 简单的素数判断函数
+(define (prime? n)
+  (define (divides? a b)
+    (= (remainder b a) 0))
+  
+  (define (test-divisor d)
+    (cond ((> (* d d) n) #t)          
+          ((divides? d n) #f)         
+          (else (test-divisor (+ d 1)))
+    ))
+  
+  (if (< n 2)                         
+      #f
+      (test-divisor 2)))              
+
+;; 计算给定范围内素数之和
+(define (prime-sum a b)
+  (define (prime-term x)
+    (if (prime? x) x 0))
+  (sum prime-term a inc b))
+
+;; 示例：
+#|
+(prime-sum 2 10)  ; 2 + 3 + 5 + 7 = 17
+(prime-sum 1 5)   ; 2 + 3 + 5 = 10
+|#
+
+;; 显式导出所有需要的函数
+(provide square cube inc dec identity sum product even? prime?)
+
+
+
