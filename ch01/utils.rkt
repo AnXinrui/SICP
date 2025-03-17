@@ -45,14 +45,6 @@
     (if (prime? x) x 0))
   (sum prime-term a inc b))
 
-;; 示例：
-#|
-(prime-sum 2 10)  ; 2 + 3 + 5 + 7 = 17
-(prime-sum 1 5)   ; 2 + 3 + 5 = 10
-|#
-
-;; 显式导出所有需要的函数
-(provide square cube inc dec identity sum product even? prime?)
-
-
+(define (average a b)
+  (/ (+ a b) 2))
 

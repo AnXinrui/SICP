@@ -9,6 +9,8 @@
 ;; Define fixed-point function
 (define (fixed-point f first-guess)
   (define (try guess)
+    (display guess)
+    (newline)
     (let ((next (f guess)))
       (if (close-enough? guess next)
           next
